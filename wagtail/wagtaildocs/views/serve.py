@@ -15,7 +15,6 @@ def serve(request, document_id, document_filename):
 
     # Make PDFs open in the browser where possible rather than save
     if doc.file_extension == 'pdf':
-        print 'stuff'
         response['Content-Disposition'] = 'filename=%s' % doc.filename
     else:
         # TODO: strip out weird characters like semicolons from the filename
