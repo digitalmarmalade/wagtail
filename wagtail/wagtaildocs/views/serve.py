@@ -8,7 +8,11 @@ from wagtail.wagtaildocs.models import Document, document_served
 def serve(request, document_id, document_filename):
     doc = get_object_or_404(Document, id=document_id)
     wrapper = FileWrapper(doc.file)
-    response = HttpResponse(wrapper, content_type='application/octet-stream')
+
+    if doc.file_extension == 'pdf':
+        response = HttpResponse(wrapper, content_type='application/pdf')
+    else:
+        response = HttpResponse(wrapper, content_type='application/octet-stream')
 
     # TODO: strip out weird characters like semicolons from the filename
     # (there doesn't seem to be an official way of escaping them)
